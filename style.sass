@@ -1,0 +1,73 @@
+$widthDuck: 100px
+$heightDuck: 100px
+$countDuck: 4
+
+@for $i from 1 through $countDuck
+    @keyframes duck-fly-#{$i}
+        0%
+            left: -$widthDuck
+            top: random(80) + vh
+
+        25%
+            left: random(80) + vw
+            top: random(80) + vh
+
+        50%
+            left: random(80) + vw
+            top: random(80) + vh
+
+        75%
+            left: random(80) + vw
+            top: random(80) + vh
+
+        100%
+            top: random(80) + vh
+            position: absolute
+            visibility: hidden
+            left: -10000px
+
+.body
+    position: relative
+    counter-reset: count
+    height: 100vh
+    margin: 0
+    background-image: url(img/background.jpg)
+    background-size: cover
+    background-position: center
+    background-repeat: no-repeat
+    overflow: hidden
+
+.duck-check:checked
+    counter-increment: count
+
+    &:checked ~ label
+        opacity: 0
+        visibility: hidden
+        transition: opacity 0.5s ease-out, visibility 0.5s ease-out
+
+.counter-info
+    color: #fff
+    font-size: 50px
+    position: absolute
+    top: 14px
+    right: 24px
+
+    &::before
+        content: counter(count)
+
+.duck
+    position: absolute
+
+    &__img
+        width: $widthDuck
+        height: $heightDuck
+        background: transparent
+
+    &-check
+        position: absolute
+        visibility: hidden
+        left: -10000px
+
+    @for $i from 1 through $countDuck
+        &__#{$i}
+            animation: duck-fly-#{$i} 5s ease-in #{$i}s both
